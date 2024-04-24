@@ -23,7 +23,7 @@ class Game(Turtle):
         self.initialize_screen()
         self.snake = Snake()
         self.food = Food()
-        self.scoreboard = Scoreboard()
+        self.scoreboard = Scoreboard(high_score=0)
         self.setup_bindings()
 
         """blinking is done at the end of a game to ask the user to restart"""
@@ -84,6 +84,8 @@ class Game(Turtle):
 
     def game_over(self):
         """End the current game."""
+        if self.scoreboard.score > self.scoreboard.high_score:
+            self.scoreboard.new_high_score()
         self.scoreboard.goto(0, 0)
         self.scoreboard.write("GAME OVER.", align=ALIGNMENT, font=FONT)
         self.screen.update()
@@ -118,7 +120,7 @@ class Game(Turtle):
         self.initialize_screen()
         self.snake = Snake()  # recreate the snake object to ensure it's fully reset
         self.food = Food()  # recreate the food object
-        self.scoreboard = Scoreboard()  # recreate the scoreboard
+        self.scoreboard = Scoreboard(self.scoreboard.high_score)  # recreate the scoreboard
 
         self.setup_bindings()  # Reset key bindings
 
