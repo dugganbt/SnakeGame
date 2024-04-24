@@ -23,13 +23,19 @@ class Game(Turtle):
         self.initialize_screen()
         self.snake = Snake()
         self.food = Food()
-        self.scoreboard = Scoreboard(high_score=0)
+        self.scoreboard = Scoreboard(high_score=self.get_highscore())
         self.setup_bindings()
 
         """blinking is done at the end of a game to ask the user to restart"""
         self.blinking_allowed = True
         self.blinker_state = True
         self.blinker = self.create_blinker()
+
+    def get_highscore(self):
+        with open("highscore.txt", mode='r') as file:
+            previous_highscore = file.read()
+        return int(previous_highscore)
+
 
     def initialize_screen(self):
         """Starts the screen on which the game is played."""

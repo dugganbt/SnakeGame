@@ -37,3 +37,7 @@ class Scoreboard(Turtle):
         self.high_score = self.score
         self.update_scoreboard()
 
+        # save the high score in the text file for the next play
+        with open("highscore.txt", mode='w') as file:
+            file.write(str(self.score))
+
